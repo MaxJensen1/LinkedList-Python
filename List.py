@@ -4,17 +4,20 @@ from Node import Node
 T = TypeVar('T')
 
 class List(Generic[T]):
-    # You need to do this initializing shit to be able to access variables
+    # You need to do this kind of initializing to be able to access variables
     def __init__(self):
         self.head: Optional[Node[T]] = None
         self.tail: Optional[Node[T]] = None
         self.listLength = 0
         self.bannedCharacters = {',', '.', '(', ')', '"', ';', ':'}
 
-    def MergeSort(self): # Need to include self to access variables for some reason
+
+    def MergeSort(self): # Need to include self to access variables
         self.head = self.StartMergeSort(self.head)
 
+
     def StartMergeSort(self, head: Node):
+        # Can't sort an empty list
         if head is None or head.next is None:
             return head
         
@@ -24,13 +27,16 @@ class List(Generic[T]):
 
         return self.Merge(head, secondHalf)
 
+
     def SplitListInHalf(self, head: Node):   
+        #Can't split empty list or if there's only one node
         if head is None or head.next is None:
             return None
         
         slowPointer: Node = head
         fastPointer: Node = head.next
 
+        # Find the middle of the list by finding the end, and moving the slow point half as much as the fast one.
         while fastPointer is not None and fastPointer.next is not None:
             fastPointer = fastPointer.next.next
             slowPointer = slowPointer.next
@@ -39,6 +45,7 @@ class List(Generic[T]):
         slowPointer.next = None
 
         return secondHalf
+
 
     def Merge(self, firstHalf: Node, secondHalf: Node):
         if firstHalf is None:
@@ -57,16 +64,19 @@ class List(Generic[T]):
             mergedList.next = self.Merge(firstHalf, secondHalf.next)
 
         return mergedList
-        
+
+
     def PrintAll(self):
         current: Node = self.head
         while current is not None:
             print(current.value)
             current = current.next
 
+
     def GetLength(self):
         return self.listLength
     
+
     def CountLength(self):
         count = 0
         current: Node = self.head
@@ -77,6 +87,7 @@ class List(Generic[T]):
     
         return count
     
+
     def Clear(self):
         current: Node = self.head
         
@@ -89,6 +100,7 @@ class List(Generic[T]):
         self.tail = None
         self.listLength = 0
 
+
     def Contains(self, input_: T):
         current: Node = self.head
 
@@ -100,6 +112,7 @@ class List(Generic[T]):
 
         return False
     
+
     def AddAtTail(self, input: T):
         if isinstance(input, str):
             try:
@@ -115,6 +128,7 @@ class List(Generic[T]):
             self.tail = self.tail.next
 
         self.listLength += 1
+
 
     def AddFromtextFile(self, fileLocation):
         try:
