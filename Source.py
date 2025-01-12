@@ -6,7 +6,7 @@ import os
 sys.setrecursionlimit(15000) # To not cap out at the default recursion depth at 1000
 
 def main():
-    testRuns = 10
+    testRuns = 100
     totalTime = 0
 
     computerName = os.getlogin()
@@ -20,13 +20,15 @@ def main():
         list.MergeSort()
         endTime = time.time()
 
+        # Commented out to save time because it would be awfully slow to print all the words.
         #list.PrintAll()
 
         deltaTime = endTime - startTime
         print("Sorted ", list.GetLength(), " words in ", deltaTime, " seconds")   
         totalTime = totalTime + deltaTime    
 
-    print("Average time to sort: ", totalTime/testRuns) 
+    averageTime = totalTime/testRuns
+    print("Sorted ", testRuns, " times. Average time to sort: ", averageTime, " seconds (", averageTime * 1000, " milliseconds).") 
     
 
 if __name__ == "__main__":
